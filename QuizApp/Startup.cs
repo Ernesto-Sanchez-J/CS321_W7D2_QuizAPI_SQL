@@ -31,6 +31,17 @@ namespace QuizApp
         {
             services.AddDbContext<AppDbContext>();
 
+            // Use SQL Database if in Azure, otherwise, use SQLite
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production")
+                services.AddDbContext<AppDbContext>(options =>
+                        options.UseSqlServer(Configuration.GetConnectionString("QuizDbConnection")));
+            else
+                services.AddDbContext<AppDbContext>(options =>
+                        options.UseSqlite("Data Source=quizapp.db"));
+
+            // Automatically perform database migration
+            services.BuildServiceProvider().GetService<AppDbContext>().Database.Migrate();
+
             services.AddScoped<IQuestionRepository, QuestionRepository>();
             services.AddScoped<IQuestionService, QuestionService>();
             services.AddScoped<IQuizRepository, QuizRepository>();

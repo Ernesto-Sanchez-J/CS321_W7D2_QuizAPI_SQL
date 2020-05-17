@@ -11,6 +11,10 @@ namespace QuizApp.Infrastructure.Data
         public DbSet<Quiz> Quizzes { get; set; }
         public DbSet<Question> Questions { get; set; }
 
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            :base(options)
+        {
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
