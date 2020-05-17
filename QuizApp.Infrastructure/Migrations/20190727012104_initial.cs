@@ -70,6 +70,7 @@ namespace QuizApp.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         // tell SQL Server to use an "identity" (auto-increment) column for id
+                        
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(nullable: true),
